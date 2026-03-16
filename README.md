@@ -97,14 +97,27 @@ YouTube Knowledge Base/
 Each generated note includes:
 
 - **YAML frontmatter** with `title`, `channel`, `url`, `video_id`, `category`, `type`, `status`, `tags`, `key_person`, `date_watched`
-- **Core idea** — single-sentence thesis
-- **Key concepts** — defined terms with plain explanations
-- **Steps / workflow** — numbered process (if applicable)
-- **Insights & surprises** — counterintuitive or noteworthy findings
-- **Actionable takeaways** — what to actually do
-- **Quotes** — memorable statements
+- **Core idea** — the speaker's actual argument + implication
+- **Key concepts** — defined terms with why they matter
+- **Tools and technologies** — structured table of every tool/model/library mentioned
+- **Architectures and systems** — components, flow, trade-offs, and failure modes
+- **Procedures and processes** — reproducible workflows with parameters and warnings
+- **Code and implementation** — APIs, parameters, patterns, and reconstructed logic/pseudocode
+- **Key insights** — 3–5 non-generic, video-specific insights
+- **Warnings and antipatterns** — mistakes, gotchas, and why they fail
+- **Metrics and benchmarks** — numbers, comparisons, and evidence (when present)
+- **Weak points** — honest critique of the least-supported claims
 - **Connections** — links to other ideas and fields
+- **Open questions** — follow-ups raised but not answered
+- **Dense summary** — 150–250 word briefing
+- **Index terms** — flat keyword list for search
 - **Raw notes** — blank area for your own additions
+
+### Extraction quality
+
+- Notes are generated from a **14-section labeled schema** (tools, architectures, procedures, code, insights, critique, questions, and index terms).
+- For **long/dense technical videos**, the plugin can run a **two-pass extraction** (analysis pass + archival pass) and merge results. This reduces “half-empty” outputs where later sections get dropped.
+- If a section truly has no content for a specific video, the AI should write exactly `N/A` under that label (rather than leaving stubs like empty tables).
 
 ## Privacy & security
 

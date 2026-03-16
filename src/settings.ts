@@ -45,6 +45,7 @@ export const DEFAULT_SETTINGS: YTKBSettings = {
     defaultPromptId: "universal",
     autoDetectCategory: true,
     includeRawTranscript: false,
+    enableTwoPassSchemaExtraction: true,
     defaultStatus: "raw",
     dateFormat: "YYYY-MM-DD",
     filenameTemplate: "{{date}}-{{title-slug}}",
@@ -553,6 +554,20 @@ export class YTKBSettingTab extends PluginSettingTab {
           .setValue(this.plugin.settings.notes.includeRawTranscript)
           .onChange(async (v) => {
             this.plugin.settings.notes.includeRawTranscript = v;
+            await this.plugin.saveSettings();
+          });
+      });
+
+    new Setting(containerEl)
+      .setName("Two-pass extraction (quality mode)")
+      .setDesc(
+        "For long/dense technical videos, run two AI passes (analysis + archival) and merge results to reduce missing/empty sections."
+      )
+      .addToggle((toggle) => {
+        toggle
+          .setValue(this.plugin.settings.notes.enableTwoPassSchemaExtraction)
+          .onChange(async (v) => {
+            this.plugin.settings.notes.enableTwoPassSchemaExtraction = v;
             await this.plugin.saveSettings();
           });
       });

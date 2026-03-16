@@ -18,6 +18,7 @@ import { VaultManager } from "./VaultManager";
 //   Pass 2 — main extraction runs against the combined summaries (full quality)
 // This preserves coverage of the complete video arc rather than just the first half.
 const LONG_TRANSCRIPT_THRESHOLD = 40_000;
+const TWO_PASS_SCHEMA_THRESHOLD = 18_000;
 
 export class ProcessingPipeline {
   private app: App;
@@ -163,16 +164,45 @@ export class ProcessingPipeline {
       isChunked: wasChunked,
     });
 
+    const shouldUseTwoPassSchema =
+      this.settings.notes.enableTwoPassSchemaExtraction &&
+      contentForExtraction.length >= TWO_PASS_SCHEMA_THRESHOLD;
+
     // 7. AI extraction
-    onStatus(`Extracting with ${provider.name}…`);
-    const aiOutput = await this.withRetry(() =>
-      provider.complete({
-        systemPrompt: rendered.system,
-        userPrompt: rendered.user,
-        maxTokens: this.settings.maxTokens,
-        temperature: this.settings.temperature,
-      })
-    );
+    let aiOutput: string;
+    if (shouldUseTwoPassSchema) {
+      onStatus(`Extracting (analysis pass) with ${provider.name}…`);
+      const analysis = await this.withRetry(() =>
+        provider.complete({
+          systemPrompt: rendered.system,
+          userPrompt: this.buildAnalysisOnlyUserPrompt(rendered.user),
+          maxTokens: this.settings.maxTokens,
+          temperature: this.settings.temperature,
+        })
+      );
+
+      onStatus(`Extracting (archival pass) with ${provider.name}…`);
+      const archival = await this.withRetry(() =>
+        provider.complete({
+          systemPrompt: rendered.system,
+          userPrompt: this.buildArchivalOnlyUserPrompt(rendered.user),
+          maxTokens: this.settings.maxTokens,
+          temperature: this.settings.temperature,
+        })
+      );
+
+      aiOutput = [analysis.trim(), archival.trim()].join("\n\n");
+    } else {
+      onStatus(`Extracting with ${provider.name}…`);
+      aiOutput = await this.withRetry(() =>
+        provider.complete({
+          systemPrompt: rendered.system,
+          userPrompt: rendered.user,
+          maxTokens: this.settings.maxTokens,
+          temperature: this.settings.temperature,
+        })
+      );
+    }
 
     // 8. Parse AI output into VideoNote
     onStatus("Generating note…");
@@ -287,6 +317,44 @@ export class ProcessingPipeline {
     if (charCount < 10_000) return "short (under 10 min)";
     if (charCount < 40_000) return "medium (10–40 min)";
     return "long (40+ min)";
+  }
+
+  private buildAnalysisOnlyUserPrompt(baseUserPrompt: string): string {
+    return [
+      baseUserPrompt,
+      "",
+      "IMPORTANT: Output ONLY the following labeled sections, in any order, with valid Markdown content. Do not output any other labels/sections.",
+      "Required sections:",
+      "- METADATA",
+      "- CORE_IDEA",
+      "- KEY_CONCEPTS",
+      "- KEY_INSIGHTS",
+      "- WEAK_POINTS",
+      "- CONNECTIONS",
+      "- OPEN_QUESTIONS",
+      "- DENSE_SUMMARY",
+      "",
+      "If a required section genuinely has no content, write exactly: N/A",
+    ].join("\n");
+  }
+
+  private buildArchivalOnlyUserPrompt(baseUserPrompt: string): string {
+    return [
+      baseUserPrompt,
+      "",
+      "IMPORTANT: Output ONLY the following labeled sections, in any order, with valid Markdown content. Do not output any other labels/sections.",
+      "Required sections:",
+      "- TOOLS_AND_TECHNOLOGIES",
+      "- ARCHITECTURES_AND_SYSTEMS",
+      "- PROCEDURES_AND_PROCESSES",
+      "- CODE_AND_IMPLEMENTATION",
+      "- WARNINGS_AND_ANTIPATTERNS",
+      "- METRICS_AND_BENCHMARKS",
+      "- PREREQUISITES",
+      "- INDEX_TERMS",
+      "",
+      "If a required section genuinely has no content, write exactly: N/A",
+    ].join("\n");
   }
 
   // ─── Post-write tasks ─────────────────────────────────────────────────────────

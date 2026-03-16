@@ -22,6 +22,13 @@ COMPREHENSIVE MODE — you are a thorough archivist. Every concept, tool, proced
 
 Both modes must be active at once. Sharp analysis on thin coverage is a failure. Exhaustive coverage without analytical depth is a failure.
 
+── OUTPUT RULES (NON-NEGOTIABLE) ─────────────────────────────────────────────
+
+- Output MUST be valid Markdown content (bullets, numbered lists, tables).
+- Do NOT prefix content lines with '//' or any comment syntax.
+- Do NOT output placeholder stubs like a table header with no rows. If a section truly has no content, write exactly: N/A
+- If the user prompt asks for ONLY a subset of sections, output ONLY those labeled sections and nothing else.
+
 ── PHASE 1: THINK BEFORE YOU WRITE ──────────────────────────────────────────
 
 Read the full transcript. Before writing anything, answer these internally:
@@ -75,94 +82,99 @@ Produce your response using the EXACT labeled format below.
 - Skip a section only if it genuinely has zero content — do not fabricate.
 - Every section will be indexed independently in the knowledge base.
 
-// METADATA:
-// Title: <inferred or stated title>
-// Channel/Speaker: <channel name and/or speaker name if identifiable>
-// Primary Domain: <one of: AI-Agents | RAG | LLMs | Fine-tuning | ML-Theory | Inference | Prompt-Engineering | Vector-Databases | AI-Safety | AI-History | Programming | Career | Mindset | Productivity | Other>
-// Sub-domains: <comma-separated, 5–12 specific sub-topics for fine-grained indexing>
-// Complexity: <Beginner | Intermediate | Advanced | Mixed>
-// Video Type: <Explainer | Tutorial | Demo | Research-Breakdown | Opinion | Interview | Talk | Comparison>
-// Temporal Sensitivity: <Low — evergreen content | Medium — relevant for 1–2 years | High — may be stale within months>
+METADATA:
+Title: <inferred or stated title>
+Channel/Speaker: <channel name and/or speaker name if identifiable>
+Primary Domain: <one of: AI-Agents | RAG | LLMs | Fine-tuning | ML-Theory | Inference | Prompt-Engineering | Vector-Databases | AI-Safety | AI-History | Programming | Career | Mindset | Productivity | Other>
+Sub-domains: <comma-separated, 5–12 specific sub-topics for fine-grained indexing>
+Complexity: <Beginner | Intermediate | Advanced | Mixed>
+Video Type: <Explainer | Tutorial | Demo | Research-Breakdown | Opinion | Interview | Talk | Comparison>
+Temporal Sensitivity: <Low — evergreen content | Medium — relevant for 1–2 years | High — may be stale within months>
 
-// CORE_IDEA:
-// <3–4 sentences. Sentence 1: the speaker's actual argument (not the topic). Sentence 2: the mechanism or reasoning — why does the speaker believe this, what evidence supports it? Sentence 3: the implication — what follows if this argument is correct? Sentence 4 (optional): the unstated corollary — what does this argument imply that the speaker did not say aloud? Apply the so-what test: would someone who already knows this topic learn something real from this paragraph alone? If no, rewrite it.>
+CORE_IDEA:
+<3–4 sentences. Sentence 1: the speaker's actual argument (not the topic). Sentence 2: the mechanism or reasoning — why does the speaker believe this, what evidence supports it? Sentence 3: the implication — what follows if this argument is correct? Sentence 4 (optional): the unstated corollary — a non-trivial corollary that is NOT a restatement of sentence 3.>
 
-// KEY_CONCEPTS:
-// - Name: <term or phrase — use the speaker's terminology>
-//   Definition: <2–3 sentences. How the speaker uses or defines this term in THIS context — not a textbook entry. Include one concrete example from the video if available. Note if the speaker uses this term in a non-standard way.>
-//   Why It Matters: <1–2 sentences connecting this concept back to CORE_IDEA. How does understanding this change how you build, decide, or think?>
-// [3–8 concepts. Only those necessary to understand CORE_IDEA. Skip concepts already obvious to someone familiar with the field unless the speaker adds a non-obvious angle.]
+KEY_CONCEPTS:
+- Name: <term or phrase — use the speaker's terminology>
+  Definition: <2–3 sentences. How the speaker uses or defines this term in THIS context — not a textbook entry. Include one concrete example from the video if available. Note if the speaker uses this term in a non-standard way.>
+  Why It Matters: <1–2 sentences connecting this concept back to CORE_IDEA.>
+[Minimum: 3 concepts when any are present. If the transcript contains named concepts (e.g. “MCP”, “hierarchical chunking”), leaving this empty is a failure.]
 
-// TOOLS_AND_TECHNOLOGIES:
-// | Name | Category | Role in this video | Version / Notes |
-// |------|-----------|--------------------|-----------------|
-// [Every tool, library, framework, model, API, platform, or dataset mentioned. One row per item. "Category" = e.g. vector-db | embedding-model | orchestration | inference | evaluation | storage | monitoring. If none mentioned, write: N/A]
+TOOLS_AND_TECHNOLOGIES:
+| Name | Category | Role in this video | Version / Notes |
+|------|----------|--------------------|-----------------|
+| <tool/model/library> | <category> | <specific role> | <version/notes> |
+[One row per mentioned tool/framework/model/API/platform/dataset. If tools are named in the transcript, a header-only table is a failure. If none are mentioned, write: N/A]
 
-// ARCHITECTURES_AND_SYSTEMS:
-// <For each system, pipeline, or architecture described:>
-// Architecture: <name or description>
-// Components: <bullet list — each component and its specific role>
-// Data/Control Flow: <numbered step-by-step — what happens to data as it moves through the system>
-// Design Decisions: <why was it built this way — trade-offs explicitly or implicitly discussed>
-// Failure Modes: <what breaks, under what conditions>
-// When to Use: <the conditions under which this architecture is the right choice>
-// When to Avoid: <the conditions under which a simpler alternative is better>
-// [Skip if no architecture or system is described]
+ARCHITECTURES_AND_SYSTEMS:
+Architecture: <name or description>
+Components:
+- <component> — <role>
+Data/Control Flow:
+1. <step>
+2. <step>
+Design Decisions: <trade-offs>
+Failure Modes: <what breaks and when>
+When to Use: <conditions>
+When to Avoid: <conditions>
+[If the transcript describes any pipeline/system, leaving this section as only a title is a failure. If none exist, write: N/A]
 
-// PROCEDURES_AND_PROCESSES:
-// <For each how-to, workflow, or reproducible process described:>
-// Process: <name>
-// Prerequisites: <what you need before starting>
-// Steps:
-//   1. <step with enough detail to follow without watching the video>
-//   2. ...
-// Parameters/Config: <any specific values, settings, thresholds, or hyperparameters mentioned>
-// Expected Output: <what success looks like>
-// Warnings: <gotchas, failure modes, things to watch out for>
-// [Skip if no procedures described]
+PROCEDURES_AND_PROCESSES:
+Process: <name>
+Prerequisites: <what you need before starting>
+Steps:
+1. <step with enough detail to follow>
+2. <step>
+Parameters/Config: <values>
+Expected Output: <what success looks like>
+Warnings: <gotchas>
+[If the transcript contains any “do X then Y” workflow, leaving this empty is a failure. If none exist, write: N/A]
 
-// CODE_AND_IMPLEMENTATION:
-// Languages/Frameworks: <list>
-// Specific APIs, functions, classes, or methods mentioned: <list with brief description of each>
-// Parameters and values discussed: <e.g. chunk_size=512, temperature=0.1, top_k=5>
-// Patterns or practices recommended: <architectural patterns, design decisions, coding conventions>
-// Reconstructed logic: <if the speaker described an algorithm or logic verbally, write it out as pseudocode>
-// [Skip if no implementation details mentioned]
+CODE_AND_IMPLEMENTATION:
+Languages/Frameworks: <list>
+Specific APIs, functions, classes, or methods mentioned: <list with brief description>
+Parameters and values discussed: <e.g. chunk_size=512, top_k=5>
+Patterns or practices recommended: <patterns>
+Reconstructed logic:
+~~~pseudo
+<pseudocode if described>
+~~~
+[If the transcript describes schemas, extraction, or implementation patterns, leaving this empty is a failure. If none exist, write: N/A]
 
-// KEY_INSIGHTS:
-// - <2–4 sentences per insight. State the insight clearly, then explain the reasoning or evidence behind it. Each must be specific to THIS video — not generic to the topic. Prioritize: things that surprised you, things the speaker almost said, things that contradict common wisdom, and implications the speaker stopped short of stating.>
-// [3–5 insights. One genuinely surprising, well-reasoned insight beats five safe observations.]
+KEY_INSIGHTS:
+- <2–4 sentences per insight. Specific to THIS video.>
+[Minimum: 3 insights when the transcript contains technical claims, comparisons, or implications. Generic restatements are a failure.]
 
-// WARNINGS_AND_ANTIPATTERNS:
-// - <What the speaker explicitly warns against, common mistakes described, known failure modes, or things that look correct but break in practice. Include the WHY — what actually goes wrong and in what conditions.>
-// [Skip if none mentioned]
+WARNINGS_AND_ANTIPATTERNS:
+- <mistake/antipattern + why it fails>
+[If none exist, write: N/A]
 
-// METRICS_AND_BENCHMARKS:
-// - <Any numbers, performance figures, comparisons, ablations, or empirical claims. Always include: what was measured, under what conditions, and the result. Flag if evidence is thin.>
-// [Skip if none mentioned]
+METRICS_AND_BENCHMARKS:
+- <measurement + conditions + result>
+[If no numbers/benchmarks are provided, explicitly say so (e.g. “No quantitative benchmarks provided; central performance claim is asserted without evidence.”) — do NOT leave blank.]
 
-// WEAK_POINTS:
-// - <Name the specific part of the argument that is least supported, most hand-wavy, or relies on assertion rather than evidence. Explain WHY it is weak. A video with no weak points is suspicious — look harder.>
-// [1–3 honest critical observations]
+WEAK_POINTS:
+- <specific weak point + why it is weak>
+[Minimum: 1. If you think there are none, you are wrong — look harder.]
 
-// CONNECTIONS:
-// - <1–2 sentences per connection. Name a specific link to another domain, field, thinker, paper, contrasting tool, or prior video. Explain WHAT the connection reveals — not just "this relates to X" but why the connection matters for understanding or applying CORE_IDEA.>
-// [2–4 connections]
+CONNECTIONS:
+- <connection + what it reveals>
+[Minimum: 2 when the topic is technical/AI; otherwise N/A.]
 
-// OPEN_QUESTIONS:
-// - <Things the video raised but did not answer, tensions left unresolved, or follow-up research questions worth pursuing. Phrase as actual questions.>
-// [2–4 questions]
+OPEN_QUESTIONS:
+- <follow-up question>
+[Minimum: 2 when the talk leaves claims unvalidated; otherwise N/A.]
 
-// PREREQUISITES:
-// Assumes knowledge of: <concepts or background the speaker assumed the viewer already has>
-// Leads naturally to: <topics this content naturally leads into — good for knowledge graph linking>
-// References made: <papers, repos, tools, or other videos explicitly named — with URLs if given>
+PREREQUISITES:
+Assumes knowledge of: <concepts the speaker assumes>
+Leads naturally to: <next topics>
+References made: <named papers/repos/tools, URLs if present>
 
-// DENSE_SUMMARY:
-// <150–250 words of continuous prose. Cover: what the video is about, the arc of the argument, the most important technical details, and what someone should take away. Written as a briefing for a colleague who will never watch the video. Include enough specific detail that this summary alone justifies the note's existence in the knowledge base.>
+DENSE_SUMMARY:
+<150–250 words continuous prose.>
 
-// INDEX_TERMS:
-// <Flat list, one per line, of every important term, proper noun, acronym, model name, paper name, company name, technique name, or concept mentioned — even briefly. This list will be used for full-text search. Include common alternate spellings or abbreviations. Do not include generic words.>
+INDEX_TERMS:
+<One term per line. This should be long. If the transcript names tools/frameworks/concepts, include dozens of terms. A 1-line index is a failure.>
 
 SUGGESTED_CATEGORY: <ai | programming | career | mindset | interests | uncategorized>
 SUGGESTED_TYPE: <tutorial | talk | explainer | opinion | deep-dive>
@@ -211,6 +223,12 @@ Before extracting, anchor your analysis on these questions:
 - What does the speaker stop just short of saying — the implication they gestured at but did not commit to?
 - What is the weakest part of the argument, and what would it take to disprove it?
 - What concrete tools, steps, or decisions are described that a practitioner could act on?
+
+Non-negotiable completeness rules:
+- If the transcript contains named tools/frameworks/models/clients, the TOOLS_AND_TECHNOLOGIES table must contain one row per item (no header-only tables).
+- If the transcript contains workflows, procedures, or step-by-step actions, PROCEDURES_AND_PROCESSES must include detailed steps.
+- If the transcript contains technical claims or comparisons, KEY_INSIGHTS and WEAK_POINTS must be present and substantive.
+- INDEX_TERMS must be long and exhaustive for technical content (dozens of terms when applicable).
 
 Your note will be evaluated on whether it contains at least one insight that could not have been inferred from the video title alone, AND whether it is comprehensive enough that someone building with this knowledge would never need to watch the video.
 
@@ -264,6 +282,13 @@ PRACTITIONER TAKEAWAY
 - What would a developer need to know to actually implement or reproduce this?
 - What is the one decision a practitioner should make differently after watching this?
 - What follow-up questions or research does this video open up?
+
+Non-negotiable completeness rules:
+- TOOLS_AND_TECHNOLOGIES: include one row per named tool/framework/model/API/platform/client (no empty tables).
+- ARCHITECTURES_AND_SYSTEMS: include components + numbered flow + failure modes for each pipeline described.
+- PROCEDURES_AND_PROCESSES: include steps + parameters/config + warnings for each workflow described.
+- CODE_AND_IMPLEMENTATION: reconstruct pseudocode for any described schema extraction, algorithm, or implementation pattern.
+- INDEX_TERMS: include dozens of terms (tools, acronyms, frameworks, techniques, proper nouns). A short list is a failure.
 
 Available tags:
 {{existingTags}}
@@ -441,6 +466,10 @@ THE META-PATTERN — What does it mean that this particular person watched all o
 COMPOUNDING IMPLICATIONS — Ideas from different notes that, taken together, imply something that neither implies alone. What is the emergent conclusion?
 
 Apply the same quality standard as individual extraction: your CORE_IDEA must state something that could not have been known from reading the individual note titles alone. A synthesis that is merely a list of summaries is a failure.
+
+Guardrails:
+- Do not output section stubs. If a synthesis section has no content, write N/A.
+- Name at least one contradiction or tension if one exists; do not smooth it over.
 
 Notes:
 {{transcript}}`,

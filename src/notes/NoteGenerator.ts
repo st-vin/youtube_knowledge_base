@@ -116,36 +116,90 @@ export class NoteGenerator {
       parts.push(`## Key concepts\n\n${conceptLines}`);
     }
 
-    // Steps
-    if (note.steps.length > 0) {
-      const stepLines = note.steps
-        .map((s, i) => `${i + 1}. ${s}`)
-        .join("\n");
-      parts.push(`## Steps / workflow\n\n${stepLines}`);
+    // Tools & technologies (table block)
+    if (note.toolsAndTechnologies.trim().length > 0) {
+      parts.push(`## Tools and technologies\n\n${note.toolsAndTechnologies}`);
     }
 
-    // Insights
-    if (note.insights.length > 0) {
-      const insightLines = note.insights.map((i) => `- ${i}`).join("\n");
-      parts.push(`## Insights & surprises\n\n${insightLines}`);
+    // Architectures & systems (rich block)
+    if (note.architecturesAndSystems.trim().length > 0) {
+      parts.push(`## Architectures and systems\n\n${note.architecturesAndSystems}`);
     }
 
-    // Actionables
-    if (note.actionables.length > 0) {
-      const actionLines = note.actionables.map((a) => `- ${a}`).join("\n");
-      parts.push(`## Actionable takeaways\n\n${actionLines}`);
+    // Procedures & processes (rich block)
+    if (note.proceduresAndProcesses.trim().length > 0) {
+      parts.push(`## Procedures and processes\n\n${note.proceduresAndProcesses}`);
     }
 
-    // Quotes
-    if (note.quotes.length > 0) {
-      const quoteLines = note.quotes.map((q) => `> ${q}`).join("\n\n");
-      parts.push(`## Quotes\n\n${quoteLines}`);
+    // Code & implementation (rich block)
+    if (note.codeAndImplementation.trim().length > 0) {
+      parts.push(`## Code and implementation\n\n${note.codeAndImplementation}`);
+    }
+
+    // Key insights
+    if (note.keyInsights.length > 0) {
+      const insightLines = note.keyInsights.map((i) => `- ${i}`).join("\n");
+      parts.push(`## Key insights\n\n${insightLines}`);
+    }
+
+    // Warnings & antipatterns
+    if (note.warningsAndAntipatterns.length > 0) {
+      const warnLines = note.warningsAndAntipatterns.map((w) => `- ${w}`).join("\n");
+      parts.push(`## Warnings and antipatterns\n\n${warnLines}`);
+    }
+
+    // Metrics & benchmarks
+    if (note.metricsAndBenchmarks.length > 0) {
+      const metricLines = note.metricsAndBenchmarks.map((m) => `- ${m}`).join("\n");
+      parts.push(`## Metrics and benchmarks\n\n${metricLines}`);
+    }
+
+    // Weak points (critique)
+    if (note.weakPoints.length > 0) {
+      const weakLines = note.weakPoints.map((w) => `- ${w}`).join("\n");
+      parts.push(`## Weak points\n\n${weakLines}`);
     }
 
     // Connections
     if (note.connections.length > 0) {
       const connLines = note.connections.map((c) => `- ${c}`).join("\n");
       parts.push(`## Connections\n\n${connLines}`);
+    }
+
+    // Open questions
+    if (note.openQuestions.length > 0) {
+      const qLines = note.openQuestions.map((q) => `- ${q}`).join("\n");
+      parts.push(`## Open questions\n\n${qLines}`);
+    }
+
+    // Prerequisites
+    if (
+      note.prerequisitesAssumes.trim().length > 0 ||
+      note.prerequisitesLeadsTo.trim().length > 0 ||
+      note.prerequisitesReferences.trim().length > 0
+    ) {
+      const lines: string[] = [];
+      if (note.prerequisitesAssumes.trim().length > 0) {
+        lines.push(`- **Assumes knowledge of**: ${note.prerequisitesAssumes.trim()}`);
+      }
+      if (note.prerequisitesLeadsTo.trim().length > 0) {
+        lines.push(`- **Leads naturally to**: ${note.prerequisitesLeadsTo.trim()}`);
+      }
+      if (note.prerequisitesReferences.trim().length > 0) {
+        lines.push(`- **References made**: ${note.prerequisitesReferences.trim()}`);
+      }
+      parts.push(`## Prerequisites\n\n${lines.join("\n")}`);
+    }
+
+    // Dense summary
+    if (note.denseSummary.trim().length > 0) {
+      parts.push(`## Dense summary\n\n${note.denseSummary}`);
+    }
+
+    // Index terms
+    if (note.indexTerms.length > 0) {
+      const termLines = note.indexTerms.map((t) => `- ${t}`).join("\n");
+      parts.push(`## Index terms\n\n${termLines}`);
     }
 
     // Raw notes area

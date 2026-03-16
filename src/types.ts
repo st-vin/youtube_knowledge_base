@@ -57,6 +57,24 @@ export interface VideoNote {
   keyPerson: string;
   coreIdea: string;
   keyConcepts: Concept[];
+
+  // New extraction schema (from SYSTEM_PROMPT labeled sections)
+  toolsAndTechnologies: string;
+  architecturesAndSystems: string;
+  proceduresAndProcesses: string;
+  codeAndImplementation: string;
+  keyInsights: string[];
+  warningsAndAntipatterns: string[];
+  metricsAndBenchmarks: string[];
+  weakPoints: string[];
+  openQuestions: string[];
+  denseSummary: string;
+  prerequisitesAssumes: string;
+  prerequisitesLeadsTo: string;
+  prerequisitesReferences: string;
+  indexTerms: string[];
+
+  // Legacy fields (kept for backward compatibility / older note formats)
   steps: string[];
   insights: string[];
   actionables: string[];
@@ -146,6 +164,7 @@ export interface NoteConfig {
   defaultPromptId: string;
   autoDetectCategory: boolean;
   includeRawTranscript: boolean;
+  enableTwoPassSchemaExtraction: boolean;
   defaultStatus: NoteStatus;
   dateFormat: string;
   filenameTemplate: string;
