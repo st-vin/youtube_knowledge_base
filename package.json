@@ -1,0 +1,25 @@
+{
+  "name": "yt-knowledge-base",
+  "version": "1.0.0",
+  "description": "Transforms YouTube videos into structured Obsidian knowledge notes using AI.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc --noEmit -p tsconfig.json && node esbuild.config.mjs production",
+    "lint": "eslint src/",
+    "lint:fix": "eslint --fix src/"
+  },
+  "keywords": ["obsidian", "youtube", "knowledge", "ai", "notes"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "^0.21.3",
+    "eslint": "^9.0.0",
+    "eslint-plugin-obsidianmd": "^0.1.0",
+    "obsidian": "latest",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5"
+  }
+}

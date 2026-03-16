@@ -1,0 +1,10 @@
+{
+  "id": "yt-knowledge-base",
+  "name": "YT Knowledge Base",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Transforms YouTube videos into structured, tagged knowledge notes using AI.",
+  "author": "Your Name",
+  "authorUrl": "https://github.com/your-username/yt-knowledge-base",
+  "isDesktopOnly": false
+}

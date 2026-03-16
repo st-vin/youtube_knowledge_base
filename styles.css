@@ -1,0 +1,273 @@
+/* ─── YT Knowledge Base — styles.css ───────────────────────────────────────────
+   ALL selectors are scoped to .ytkb-* to avoid conflicts with other plugins.
+   ALL colors use Obsidian CSS variables — no hardcoded values.
+   focus-visible indicators defined on every interactive element.
+   Touch targets ≥ 44×44px on buttons.
+─────────────────────────────────────────────────────────────────────────────── */
+
+/* ── Settings page ─────────────────────────────────────────────────────────── */
+
+.ytkb-settings .ytkb-provider-active .setting-item-name {
+  color: var(--color-green);
+  font-weight: var(--font-semibold);
+}
+
+.ytkb-settings .ytkb-provider-inactive .setting-item-name {
+  color: var(--text-muted);
+}
+
+.ytkb-settings .ytkb-test-btn {
+  min-width: 120px;
+}
+
+.ytkb-settings .ytkb-test-success {
+  color: var(--color-green);
+  border-color: var(--color-green);
+}
+
+.ytkb-settings .ytkb-test-fail {
+  color: var(--color-red);
+  border-color: var(--color-red);
+}
+
+.ytkb-settings .ytkb-danger-btn {
+  color: var(--color-red);
+  border-color: var(--color-red);
+}
+
+.ytkb-settings .ytkb-danger-btn:hover {
+  background: var(--background-modifier-error);
+}
+
+/* Prompt list in settings */
+.ytkb-prompt-list {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  margin-bottom: var(--size-4-3);
+  overflow: hidden;
+}
+
+.ytkb-prompt-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--size-4-2);
+  padding: var(--size-4-2) var(--size-4-3);
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.ytkb-prompt-row:last-child {
+  border-bottom: none;
+}
+
+.ytkb-prompt-name {
+  font-weight: var(--font-semibold);
+  color: var(--text-normal);
+  min-width: 160px;
+}
+
+.ytkb-prompt-badge {
+  font-size: var(--font-smallest);
+  color: var(--text-on-accent);
+  background: var(--interactive-accent);
+  border-radius: var(--radius-s);
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.ytkb-prompt-desc {
+  font-size: var(--font-small);
+  color: var(--text-muted);
+}
+
+/* ── URL input modal ───────────────────────────────────────────────────────── */
+
+.ytkb-url-modal .ytkb-url-input {
+  width: 100%;
+  font-size: var(--font-ui-medium);
+}
+
+.ytkb-url-modal .ytkb-advanced-toggle,
+.ytkb-url-modal .ytkb-transcript-toggle {
+  margin: var(--size-4-2) 0;
+}
+
+.ytkb-url-modal .ytkb-advanced {
+  background: var(--background-secondary);
+  border-radius: var(--radius-m);
+  padding: var(--size-4-2) var(--size-4-3);
+  margin-bottom: var(--size-4-2);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.ytkb-url-modal .ytkb-transcript-area {
+  width: 100%;
+  font-size: var(--font-ui-small);
+  font-family: var(--font-monospace);
+  resize: vertical;
+}
+
+/* Hint banner — shown when modal reopens after a transcript fetch failure */
+.ytkb-hint-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--size-4-2);
+  background: var(--background-modifier-error);
+  border: 1px solid var(--color-red);
+  border-radius: var(--radius-m);
+  padding: var(--size-4-2) var(--size-4-3);
+  margin-bottom: var(--size-4-3);
+  font-size: var(--font-ui-small);
+  color: var(--text-error);
+  line-height: 1.5;
+}
+
+.ytkb-hint-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+/* Manual transcript how-to guide */
+.ytkb-manual-howto {
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  padding: var(--size-4-2) var(--size-4-3);
+  margin: var(--size-4-2) 0;
+}
+
+.ytkb-manual-howto-title {
+  font-size: var(--font-ui-small);
+  font-weight: var(--font-semibold);
+  color: var(--text-muted);
+  margin-bottom: var(--size-4-1);
+}
+
+.ytkb-manual-howto-steps {
+  font-size: var(--font-ui-small);
+  color: var(--text-muted);
+  padding-left: var(--size-4-4);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ── Batch modal ───────────────────────────────────────────────────────────── */
+
+.ytkb-batch-modal .ytkb-batch-area {
+  width: 100%;
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-small);
+  resize: vertical;
+}
+
+/* ── Duplicate modal ───────────────────────────────────────────────────────── */
+
+.ytkb-duplicate-modal .ytkb-modal-desc {
+  color: var(--text-muted);
+  margin-bottom: var(--size-4-2);
+}
+
+.ytkb-duplicate-modal .ytkb-existing-path {
+  display: block;
+  background: var(--background-secondary);
+  border-radius: var(--radius-s);
+  padding: var(--size-4-1) var(--size-4-2);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-small);
+  color: var(--text-normal);
+  margin-bottom: var(--size-4-3);
+  word-break: break-all;
+}
+
+/* ── Shared button styles ──────────────────────────────────────────────────── */
+
+.ytkb-btn-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--size-4-2);
+  margin-top: var(--size-4-4);
+  flex-wrap: wrap;
+}
+
+.ytkb-submit-btn,
+.ytkb-cancel-btn,
+.ytkb-secondary-btn,
+.ytkb-toggle-btn {
+  min-height: 44px; /* accessibility: touch target */
+  min-width: 44px;
+  padding: 0 var(--size-4-3);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--background-modifier-border);
+  background: transparent;
+  color: var(--text-normal);
+  font-size: var(--font-ui-medium);
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.ytkb-submit-btn {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  border-color: var(--interactive-accent);
+  font-weight: var(--font-semibold);
+}
+
+.ytkb-submit-btn:hover:not(:disabled) {
+  background: var(--interactive-accent-hover);
+}
+
+.ytkb-submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ytkb-cancel-btn:hover,
+.ytkb-secondary-btn:hover,
+.ytkb-toggle-btn:hover {
+  background: var(--background-modifier-hover);
+}
+
+.ytkb-danger-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 var(--size-4-3);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--color-red);
+  background: transparent;
+  color: var(--color-red);
+  font-size: var(--font-ui-medium);
+  cursor: pointer;
+}
+
+.ytkb-danger-btn:hover {
+  background: var(--background-modifier-error);
+}
+
+.ytkb-toggle-btn {
+  font-size: var(--font-ui-small);
+  color: var(--text-accent);
+  border: none;
+  background: none;
+  padding: 0;
+  min-height: unset;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ── Mandatory focus indicators ────────────────────────────────────────────── */
+
+.ytkb-submit-btn:focus-visible,
+.ytkb-cancel-btn:focus-visible,
+.ytkb-secondary-btn:focus-visible,
+.ytkb-toggle-btn:focus-visible,
+.ytkb-danger-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.ytkb-url-input:focus-visible,
+.ytkb-transcript-area:focus-visible,
+.ytkb-batch-area:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
