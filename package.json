@@ -10,7 +10,7 @@
     "lint:fix": "eslint --fix src/"
   },
   "keywords": ["obsidian", "youtube", "knowledge", "ai", "notes"],
-  "author": "Your Name",
+  "author": "Alvin",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",

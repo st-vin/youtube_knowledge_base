@@ -30,7 +30,7 @@ Built for developers, students, and knowledge workers who watch a lot of YouTube
 
 ### Manual installation
 
-1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/your-username/yt-knowledge-base/releases/latest)
+1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/st-vin/youtube_knowledge_base/releases/latest)
 2. Create folder `.obsidian/plugins/yt-knowledge-base/` in your vault
 3. Copy the three files into that folder
 4. Enable the plugin in Obsidian Settings → Community plugins
@@ -135,7 +135,7 @@ Each generated note includes:
 
 ## Contributing
 
-Issues and pull requests are welcome at [github.com/your-username/yt-knowledge-base](https://github.com/your-username/yt-knowledge-base).
+Issues and pull requests are welcome at [github.com/st-vin/youtube_knowledge_base](https://github.com/st-vin/youtube_knowledge_base).
 
 ## License
 
